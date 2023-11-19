@@ -2,4 +2,4 @@
 
 ## Day 1
 
-Anotações do dia - [Here](day-1/readne.md)
+Anotações do dia - [Here](day-1/README.md)
