@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-3
+  labels:
+    project: easy
+spec:
+  containers:
+    - image: nginx
+      name: nginx
+      resources:
+        requests:
+          cpu: "0.1"
+          memory: "128Mi"
+        limits:
+          cpu: "0.5"
+          memory: "256Mi"
+      volumeMounts:
+      - mountPath: "/data"
+        name: volume-emptydir
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+  - name: volume-emptydir
+    emptyDir: 
+      sizeLimit: 100Mi
