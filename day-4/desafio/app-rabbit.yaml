@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rabbitmq
+    version: v2
+  name: rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+      - image: rabbitmq:3.11
+        name: rabbitmq
+        ports:
+          - name: http
+            protocol: TCP
+            containerPort: 15672
+          - name: amqp
+            protocol: TCP
+            containerPort: 5672
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: 256Mi
+          requests:
+            cpu: 0.25
+            memory: 128Mi
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #     - rabbitmq-diagnostics
+        #     - status
+        #   initialDelaySeconds: 60
+        #   periodSeconds: 60
+        #   timeoutSeconds: 15
+        #   failureThreshold: 6
+        #   successThreshold: 1
+        # readinessProbe:
+        #   exec:
+        #     command:
+        #     - rabbitmq-diagnostics
+        #     - ping
+        #   initialDelaySeconds: 20
+        #   periodSeconds: 60
+        #   timeoutSeconds: 10
+        #   failureThreshold: 3
+        #   successThreshold: 2
+        # startupProbe:
+        #   tcpSocket:
+        #     port: 5672
+        #   initialDelaySeconds: 60
+        #   timeoutSeconds: 60
+        #   failureThreshold: 3
+        #   successThreshold: 1
